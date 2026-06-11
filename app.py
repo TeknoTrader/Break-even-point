@@ -73,6 +73,33 @@ I18N = {
                        "Уточніть ставки у бухгалтера."},
     "network_note": {"it": "Valori di rete = valori per distributore moltiplicati per il numero di distributori.",
                      "uk": "Показники мережі = показники на автомат, помножені на кількість автоматів."},
+
+    "help_capex": {"it": "Investimento iniziale una tantum per acquistare un distributore. Si recupera nel tempo (payback).",
+                   "uk": "Початкова разова інвестиція на купівлю одного автомата. Повертається з часом (окупність)."},
+    "help_machines": {"it": "Quanti distributori compongono la rete. I valori di rete sono moltiplicati per questo numero.",
+                      "uk": "Скільки автоматів у мережі. Показники мережі множаться на це число."},
+    "help_price": {"it": "Prezzo medio di vendita di una pizza al consumatore.",
+                   "uk": "Середня роздрібна ціна однієї піци для споживача."},
+    "help_ppd": {"it": "Numero medio di pizze vendute al giorno da un singolo distributore.",
+                 "uk": "Середня кількість піц, проданих за день одним автоматом."},
+    "help_foodcost": {"it": "Costo degli ingredienti come percentuale del prezzo di vendita (tipico 20-25%).",
+                      "uk": "Вартість інгредієнтів у відсотках від ціни продажу (зазвичай 20-25%)."},
+    "help_rent": {"it": "Canone mensile per la postazione dove e installato il distributore.",
+                  "uk": "Щомісячна плата за місце, де встановлено автомат."},
+    "help_power": {"it": "Consumo elettrico mensile stimato del distributore.",
+                   "uk": "Оцінка щомісячного споживання електроенергії автоматом."},
+    "help_conn": {"it": "Costo mensile di connessione dati e trasmissione fiscale all'Agenzia delle Entrate.",
+                  "uk": "Щомісячна вартість звязку та фіскальної передачі до Agenzia delle Entrate."},
+    "help_maint": {"it": "Manutenzione tecnica, sanificazione e materiali di consumo (scatole, tovaglioli).",
+                   "uk": "Технічне обслуговування, санітарна обробка та витратні матеріали (коробки, серветки)."},
+    "help_staff_cost": {"it": "Costo mensile lordo dell'addetto con certificazione HACCP (controlli, pulizia del gruppo di taglio, rifornimento).",
+                        "uk": "Місячна валова зарплата працівника з сертифікатом HACCP (контроль, чищення вузла нарізки, поповнення)."},
+    "help_staff_ratio": {"it": "Quanti distributori puo seguire un solo addetto. Il costo viene ripartito tra i distributori.",
+                         "uk": "Скільки автоматів обслуговує один працівник. Витрати діляться між автоматами."},
+    "help_tax": {"it": "Imposte societarie sull'utile: IRES 24% + IRAP circa 3,9%. Applicate solo all'utile positivo.",
+                 "uk": "Податки на прибуток: IRES 24% + IRAP близько 3,9%. Застосовуються лише до позитивного прибутку."},
+    "help_amort": {"it": "Su quanti mesi distribuire il costo del distributore nel calcolo del pareggio con CAPEX.",
+                   "uk": "На скільки місяців розподілити вартість автомата в розрахунку беззбитковості з CAPEX."},
 }
 
 
@@ -100,25 +127,25 @@ st.caption(t("app_sub", lang))
 
 # --- INPUT (sidebar) ---
 st.sidebar.header(t("h_invest", lang))
-capex = st.sidebar.number_input(t("capex", lang), min_value=0, value=10000, step=500)
-n_machines = st.sidebar.number_input(t("machines", lang), min_value=1, value=1, step=1)
+capex = st.sidebar.number_input(t("capex", lang), min_value=0, value=10000, step=500, help=t("help_capex", lang))
+n_machines = st.sidebar.number_input(t("machines", lang), min_value=1, value=1, step=1, help=t("help_machines", lang))
 
 st.sidebar.header(t("h_revenue", lang))
-price = st.sidebar.number_input(t("price", lang), min_value=0.0, value=7.0, step=0.1)
-ppd = st.sidebar.slider(t("ppd", lang), min_value=0, max_value=120, value=30, step=1)
-foodcost = st.sidebar.slider(t("foodcost", lang), min_value=0, max_value=100, value=22, step=1)
+price = st.sidebar.number_input(t("price", lang), min_value=0.0, value=7.0, step=0.1, help=t("help_price", lang))
+ppd = st.sidebar.slider(t("ppd", lang), min_value=0, max_value=120, value=15, step=1, help=t("help_ppd", lang))
+foodcost = st.sidebar.slider(t("foodcost", lang), min_value=0, max_value=100, value=22, step=1, help=t("help_foodcost", lang))
 
 st.sidebar.header(t("h_opex", lang))
-rent = st.sidebar.number_input(t("rent", lang), min_value=0, value=300, step=50)
-power = st.sidebar.number_input(t("power", lang), min_value=0, value=150, step=10)
-conn = st.sidebar.number_input(t("conn", lang), min_value=0, value=50, step=10)
-maint = st.sidebar.number_input(t("maint", lang), min_value=0, value=200, step=10)
-staff_cost = st.sidebar.number_input(t("staff_cost", lang), min_value=0, value=2000, step=100)
-staff_ratio = st.sidebar.number_input(t("staff_ratio", lang), min_value=1, value=5, step=1)
+rent = st.sidebar.number_input(t("rent", lang), min_value=0, value=300, step=50, help=t("help_rent", lang))
+power = st.sidebar.number_input(t("power", lang), min_value=0, value=150, step=10, help=t("help_power", lang))
+conn = st.sidebar.number_input(t("conn", lang), min_value=0, value=50, step=10, help=t("help_conn", lang))
+maint = st.sidebar.number_input(t("maint", lang), min_value=0, value=200, step=10, help=t("help_maint", lang))
+staff_cost = st.sidebar.number_input(t("staff_cost", lang), min_value=0, value=2000, step=100, help=t("help_staff_cost", lang))
+staff_ratio = st.sidebar.number_input(t("staff_ratio", lang), min_value=1, value=5, step=1, help=t("help_staff_ratio", lang))
 
 st.sidebar.header(t("h_tax", lang))
-tax = st.sidebar.slider(t("tax", lang), min_value=0.0, max_value=60.0, value=27.9, step=0.1)
-amort = st.sidebar.number_input(t("amort", lang), min_value=1, value=12, step=1)
+tax = st.sidebar.slider(t("tax", lang), min_value=0.0, max_value=60.0, value=27.9, step=0.1, help=t("help_tax", lang))
+amort = st.sidebar.number_input(t("amort", lang), min_value=1, value=12, step=1, help=t("help_amort", lang))
 
 # --- MODELLO DI CALCOLO ---
 food = foodcost / 100.0
