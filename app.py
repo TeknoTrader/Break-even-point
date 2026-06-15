@@ -120,6 +120,7 @@ def fmt(value, lang, dec=0):
 # Selettore lingua
 lang = st.sidebar.radio(I18N["lang_label"]["it"] + " / " + I18N["lang_label"]["uk"],
                         options=["it", "uk"],
+                        index=1,
                         format_func=lambda x: "Italiano" if x == "it" else "Українська")
 
 st.title(t("app_title", lang))
